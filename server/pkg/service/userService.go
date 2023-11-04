@@ -57,6 +57,14 @@ func NewUserServiceImpl() *UserServiceImpl {
 			Married:   true,
 			Height:    6.8,
 		},
+		6: {
+			Id:        1,
+			FirstName: "Siva",
+			City:      "Vizag",
+			Phone:     "+910014313333",
+			Married:   false,
+			Height:    5.5,
+		},
 	}
 	return &UserServiceImpl{
 		dataBase: dataBase,
