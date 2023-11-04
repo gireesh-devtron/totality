@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/caarlos0/env"
 	client "github.com/gireesh-devtron/totality/server/grpc"
 	"github.com/gireesh-devtron/totality/server/pkg/service"
 	"google.golang.org/grpc"
@@ -10,6 +11,10 @@ import (
 	"net"
 	"time"
 )
+
+type ServerConfig struct {
+	Port int `env:"port" envDefault:"3000"`
+}
 
 type App struct {
 	ServerImpl *service.UserServiceServerImpl
@@ -23,8 +28,9 @@ func NewApp(ServerImpl *service.UserServiceServerImpl) *App {
 
 func (app *App) Start() {
 
-	port := 3000 //TODO: extract from environment variable
-	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", port))
+	config := &ServerConfig{}
+	env.Parse(config)
+	listener, err := net.Listen("tcp", fmt.Sprintf(":%d", config.Port))
 	if err != nil {
 		log.Panic(err)
 	}
@@ -37,9 +43,10 @@ func (app *App) Start() {
 
 	grpcServer := grpc.NewServer(opts...)
 	client.RegisterUserServiceServer(grpcServer, app.ServerImpl)
+	fmt.Println("grpc server running in port : ", config.Port)
 	err = grpcServer.Serve(listener)
 	if err != nil {
 		log.Panic(fmt.Sprintf("failed to listen: err %v", err.Error()))
 	}
-
+	fmt.Println("server stoped!")
 }
