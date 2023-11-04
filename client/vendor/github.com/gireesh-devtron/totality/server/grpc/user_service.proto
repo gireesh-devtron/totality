@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "github.com/gireesh-devtron/totality/server/grpc/client";
+
+
+message UsersRequest {
+  repeated UserRequest userRequests = 1;
+}
+message UserRequest{
+  optional int32 id = 1;
+  optional string firstName = 2;
+}
+message UsersResponse{
+  repeated UserResponse userResponses = 1;
+}
+
+message UserResponse{
+  int32 id = 1;
+  string firstName = 2;
+  optional string lastName = 3;
+}
+
+service UserService{
+  rpc GetUsers(UsersRequest) returns ( UsersResponse){}
+}
