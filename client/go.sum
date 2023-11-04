@@ -1,5 +1,7 @@
 github.com/gireesh-devtron/totality/server v0.0.0-20231104152837-acc3fb088e85 h1:9EZMvXc+9A1L5iMOYw7hp18MtX/8YZI/+yeAv60RW+s=
 github.com/gireesh-devtron/totality/server v0.0.0-20231104152837-acc3fb088e85/go.mod h1:NyCW/49EW6qaoQ/QMCwfB0USk5W98XTLJYp+m6JcWv4=
+github.com/gireesh-devtron/totality/server v0.0.0-20231104162119-5bba46730636 h1:Cq5yoK/rAaV9kOObqzUHOGONcJ5Im4VJfVUEiM7ZUDs=
+github.com/gireesh-devtron/totality/server v0.0.0-20231104162119-5bba46730636/go.mod h1:C1CoQL8npVY5NXYy5VXXj3y/AQERjAPZkPHdsnY/ZM8=
 github.com/golang/protobuf v1.5.0/go.mod h1:FsONVRAS9T7sI+LIUmWTfcYkHO4aIWwzhcaSAoJOfIk=
 github.com/golang/protobuf v1.5.3 h1:KhyjKVUg7Usr/dYsdSqoFveMYd5ko72D+zANwlG1mmg=
 github.com/golang/protobuf v1.5.3/go.mod h1:XVQd3VNwM+JqD3oG2Ue2ip4fOMUkwXdXDdiuN0vRsmY=

@@ -3,7 +3,7 @@ module github.com/gireesh-devtron/totality/client
 go 1.20
 
 require (
-	github.com/gireesh-devtron/totality/server v0.0.0-20231104152837-acc3fb088e85
+	github.com/gireesh-devtron/totality/server v0.0.0-20231104162119-5bba46730636
 	google.golang.org/grpc v1.59.0
 )
 
