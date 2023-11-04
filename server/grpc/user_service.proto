@@ -7,8 +7,7 @@ message UsersRequest {
   repeated UserRequest userRequests = 1;
 }
 message UserRequest{
-  optional int32 id = 1;
-  optional string firstName = 2;
+  int32 id = 1;
 }
 message UsersResponse{
   repeated UserResponse userResponses = 1;
@@ -17,9 +16,13 @@ message UsersResponse{
 message UserResponse{
   int32 id = 1;
   string firstName = 2;
-  optional string lastName = 3;
+  string city      =3;
+  string phone     =4;
+  fixed32 height   =5 ;
+  bool married   =6;
 }
 
 service UserService{
   rpc GetUsers(UsersRequest) returns ( UsersResponse){}
+  rpc GetUser(UserRequest) returns(UserResponse){}
 }

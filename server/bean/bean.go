@@ -3,5 +3,8 @@ package bean
 type UserModel struct {
 	Id        int
 	FirstName string
-	LastName  string
+	City      string
+	Phone     string
+	Height    float32
+	Married   bool
 }
