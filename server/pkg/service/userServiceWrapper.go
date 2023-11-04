@@ -26,3 +26,8 @@ func (impl *UserServiceServerImpl) GetUsers(ctx context.Context, request *client
 	impl.logger.Infow("Hello from GetUsers Method")
 	return &client.UsersResponse{}, nil
 }
+
+func (impl *UserServiceServerImpl) GetUser(ctx context.Context, request *client.UserRequest) (*client.UserResponse, error) {
+	impl.logger.Infow("Hello from GetUsers Method")
+	return &client.UserResponse{}, nil
+}
