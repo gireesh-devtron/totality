@@ -4,7 +4,6 @@ import (
 	"fmt"
 	client "github.com/gireesh-devtron/totality/server/grpc"
 	"github.com/gireesh-devtron/totality/server/pkg/service"
-	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/keepalive"
 	"log"
@@ -13,13 +12,11 @@ import (
 )
 
 type App struct {
-	Logger     *zap.SugaredLogger
 	ServerImpl *service.UserServiceServerImpl
 }
 
-func NewApp(Logger *zap.SugaredLogger, ServerImpl *service.UserServiceServerImpl) *App {
+func NewApp(ServerImpl *service.UserServiceServerImpl) *App {
 	return &App{
-		Logger:     Logger,
 		ServerImpl: ServerImpl,
 	}
 }
@@ -42,7 +39,7 @@ func (app *App) Start() {
 	client.RegisterUserServiceServer(grpcServer, app.ServerImpl)
 	err = grpcServer.Serve(listener)
 	if err != nil {
-		app.Logger.Fatalw("failed to listen: %v", "err", err)
+		log.Panic(fmt.Sprintf("failed to listen: err %v", err.Error()))
 	}
 
 }

@@ -1,23 +1,21 @@
 package service
 
 import (
+	"fmt"
 	"github.com/gireesh-devtron/totality/server/bean"
 	client "github.com/gireesh-devtron/totality/server/grpc"
-	"go.uber.org/zap"
-	"sync"
 )
 
 type UserService interface {
-	GetUsers(request *client.UsersRequest) (*client.UsersResponse, error)
+	GetUsers(request *client.UsersRequest) ([]*bean.UserModel, error)
+	GetUser(request *client.UserRequest) (*bean.UserModel, error)
 }
 
 type UserServiceImpl struct {
-	locker   *sync.Mutex
-	logger   *zap.SugaredLogger
 	dataBase map[int]*bean.UserModel
 }
 
-func NewUserServiceImpl(logger *zap.SugaredLogger) *UserServiceImpl {
+func NewUserServiceImpl() *UserServiceImpl {
 	dataBase := map[int]*bean.UserModel{
 		1: {
 			Id:        1,
@@ -61,13 +59,16 @@ func NewUserServiceImpl(logger *zap.SugaredLogger) *UserServiceImpl {
 		},
 	}
 	return &UserServiceImpl{
-		logger:   logger,
-		locker:   &sync.Mutex{},
 		dataBase: dataBase,
 	}
 }
 
-func (impl *UserServiceImpl) GetUsers(request *client.UsersRequest) (*client.UsersResponse, error) {
-	impl.logger.Errorw("hello from UserService GetUsers method")
-	return &client.UsersResponse{}, nil
+func (impl *UserServiceImpl) GetUsers(request *client.UsersRequest) ([]*bean.UserModel, error) {
+	fmt.Println("hello from UserService GetUsers method")
+	return []*bean.UserModel{}, nil
+}
+
+func (impl *UserServiceImpl) GetUser(request *client.UserRequest) (*bean.UserModel, error) {
+	fmt.Println("hello from UserService GetUser method")
+	return &bean.UserModel{}, nil
 }

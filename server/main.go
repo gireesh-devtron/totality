@@ -2,7 +2,6 @@ package main
 
 import (
 	"github.com/gireesh-devtron/totality/server/pkg/service"
-	"go.uber.org/zap"
 )
 
 func main() {
@@ -11,14 +10,9 @@ func main() {
 }
 
 func Init() *App {
-	config := zap.NewProductionConfig()
-	log, err := config.Build()
-	if err != nil {
-		panic("failed to create the logger: " + err.Error())
-	}
-	logger := log.Sugar()
-	userService := service.NewUserServiceImpl(logger)
-	userServiceWrapper := service.NewUserServiceServerImpl(logger, userService)
-	app := NewApp(logger, userServiceWrapper)
+
+	userService := service.NewUserServiceImpl()
+	userServiceWrapper := service.NewUserServiceServerImpl(userService)
+	app := NewApp(userServiceWrapper)
 	return app
 }
