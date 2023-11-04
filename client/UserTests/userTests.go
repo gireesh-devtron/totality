@@ -42,7 +42,7 @@ func (impl *UserServerTester) testGetByUserId(id int32) {
 	}
 	user, err := impl.userServer.GetUser(context.Background(), req)
 	if err != nil {
-		log.Println("error in finding the user by Id", "id", id, "err", err)
+		log.Println("error in finding the user by Id", id, "err", err)
 		return
 	}
 	fmt.Println(fmt.Sprintf("user found for id : %v , user : %v", id, user))
