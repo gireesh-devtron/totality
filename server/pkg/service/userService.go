@@ -12,11 +12,11 @@ type UserService interface {
 }
 
 type UserServiceImpl struct {
-	dataBase map[int]*bean.UserModel
+	dataBase map[int32]*bean.UserModel
 }
 
 func NewUserServiceImpl() *UserServiceImpl {
-	dataBase := map[int]*bean.UserModel{
+	dataBase := map[int32]*bean.UserModel{
 		1: {
 			Id:        1,
 			FirstName: "Steve",
@@ -64,11 +64,24 @@ func NewUserServiceImpl() *UserServiceImpl {
 }
 
 func (impl *UserServiceImpl) GetUsers(request *client.UsersRequest) ([]*bean.UserModel, error) {
-	fmt.Println("hello from UserService GetUsers method")
+	fmt.Println("serving get users by ids request...")
+	defer fmt.Println("request served!")
+	usersFound := make([]*bean.UserModel, 0, len(request.UserRequests))
+	for _, userRequest := range request.UserRequests {
+		user, found := impl.dataBase[userRequest.Id]
+		if !found {
+			continue
+		}
+		usersFound = append(usersFound, user)
+	}
 	return []*bean.UserModel{}, nil
 }
 
 func (impl *UserServiceImpl) GetUser(request *client.UserRequest) (*bean.UserModel, error) {
-	fmt.Println("hello from UserService GetUser method")
-	return &bean.UserModel{}, nil
+	fmt.Println("serving get user by id request...")
+	user, found := impl.dataBase[request.Id]
+	if !found {
+		return nil, fmt.Errorf(fmt.Sprintf("user not found for given id : %v", request.Id))
+	}
+	return user, nil
 }

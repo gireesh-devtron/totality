@@ -20,11 +20,24 @@ func (impl *UserServiceServerImpl) MustEmbedUnimplementedApplicationServiceServe
 }
 
 func (impl *UserServiceServerImpl) GetUsers(ctx context.Context, request *client.UsersRequest) (*client.UsersResponse, error) {
-	impl.userService.GetUsers(request)
-	return &client.UsersResponse{}, nil
+	users, err := impl.userService.GetUsers(request)
+	if err != nil {
+		return nil, err
+	}
+	userResponse := &client.UsersResponse{
+		UserResponses: make([]*client.UserResponse, 0),
+	}
+
+	for _, user := range users {
+		userResponse.UserResponses = append(userResponse.UserResponses, user.ConvertToUserResponse())
+	}
+	return userResponse, nil
 }
 
 func (impl *UserServiceServerImpl) GetUser(ctx context.Context, request *client.UserRequest) (*client.UserResponse, error) {
-	impl.userService.GetUser(request)
-	return &client.UserResponse{}, nil
+	user, err := impl.userService.GetUser(request)
+	if err != nil {
+		return nil, err
+	}
+	return user.ConvertToUserResponse(), nil
 }
