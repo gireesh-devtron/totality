@@ -87,6 +87,7 @@ func (impl *UserServiceImpl) GetUsers(request *client.UsersRequest) ([]*bean.Use
 
 func (impl *UserServiceImpl) GetUser(request *client.UserRequest) (*bean.UserModel, error) {
 	fmt.Println("serving get user by id request...")
+	defer fmt.Println("request served!")
 	user, found := impl.dataBase[request.Id]
 	if !found {
 		return nil, fmt.Errorf(fmt.Sprintf("user not found for given id : %v", request.Id))
