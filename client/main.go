@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"github.com/gireesh-devtron/totality/client/UserTests"
 	server "github.com/gireesh-devtron/totality/server/grpc"
-	"go.uber.org/zap"
 	"google.golang.org/grpc"
 	"time"
 )
@@ -16,13 +15,7 @@ func main() {
 		panic("error in connecting with grpc service")
 	}
 	userServer := server.NewUserServiceClient(conn)
-	config := zap.NewProductionConfig()
-	log, err := config.Build()
-	if err != nil {
-		panic("failed to create the logger: " + err.Error())
-	}
-	logger := log.Sugar()
-	userServerTester := UserTests.NewUserServerTester(logger, userServer)
+	userServerTester := UserTests.NewUserServerTester(userServer)
 	userServerTester.RunTests()
 }
 
